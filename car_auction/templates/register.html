@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+{% block title %} Register {% endblock %}
+{% block main %}
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+  <div class="page-header d-flex align-items-center" style="background-image: url('img/contactus.jpg');">
+    <div class="container position-relative">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h2>Register Account</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav>
+    <div class="container">
+      <ol>
+        <li><a style="color: #034707;" href="{% url 'index' %}">Home</a></li>
+        <li>Register Account</li>
+      </ol>
+    </div>
+  </nav>
+</div><!-- End Breadcrumbs -->
+
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
+    <div class="row gy-4 mt-4">
+      <div class="col-lg-4">
+        <!-- This space intentionally left blank -->
+      </div>
+
+      <div class="col-lg-8">
+        <form method="post">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label for="email">Email</label>
+              <input type="email" name="email" class="form-control" id="email" required>
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label for="password">Password</label>
+              <input type="password" name="password" class="form-control" id="password" required>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="user">Register As</label>
+            <select class="form-control" name="user" required>
+              <option value="Buyer">Buyer</option>
+              <option value="Seller">Seller</option>
+            </select>
+          </div>
+
+          <a href="{% url 'login' %}" style="color: green;">Already have an account? Login</a>
+
+          <div class="text-center mt-3">
+            <button type="submit" class="btn btn-primary">Register</button>
+          </div>
+        </form>
+      </div><!-- End Contact Form -->
+    </div>
+  </div>
+</section><!-- End Contact Section -->
+
+{% endblock %}

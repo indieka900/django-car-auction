@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %} Place Bid {% endblock %}
+
+{% block main %}
+
+<h1>{{ car.make }} {{ car.model }} {{ car.year }}</h1>
+<img src="{{ car.image.url }}" alt="{{ car.make }} {{ car.model }}">
+<p>Condition: {{ car.condition }}</p>
+<p>Bid Count: {{ car.bid_count }}</p>
+<form action="{% url 'place_bid' %}" method="post">
+  {% csrf_token %}
+  <input type="hidden" name="car_id" value="{{ car.id }}">
+  <label for="bid_amount">Your Bid:</label>
+  <input type="number" id="bid_amount" name="bid_amount" min="0" required>
+  <input type="submit" value="Place Bid">
+</form>
+
+{% endblock %}

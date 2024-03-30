@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+{% block title %}
+Login
+{% endblock %}
+{% block main %}
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+  <div class="page-header d-flex align-items-center" style="background-image: url('img/contactus.jpg');">
+    <div class="container position-relative">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h2>Login to Account</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav>
+    <div class="container">
+      <ol>
+        <li><a style="color: #034707;" href="{% url 'index' %}">Home</a></li>
+        <li>login</li>
+      </ol>
+    </div>
+  </nav>
+</div><!-- End Breadcrumbs -->
+
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
+    <div class="row gy-4 mt-4">
+      <div class="col-lg-4">
+        <!-- This space intentionally left blank -->
+
+      </div>
+
+      <div class="col-lg-8">
+        {% for message in messages %}
+        <div class="alert alert-{{message.tags}} alert-dismissible fade show" role="alert">
+          <strong>{{message}}</strong>
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endfor %}
+        <form method="post" action="">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label for="email">Email</label>
+              <input type="email" name="email" class="form-control" id="email" required>
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label for="password">Password</label>
+              <input type="password" name="password" class="form-control" id="password" required>
+            </div>
+          </div>
+          <a href="{% url 'register' %}" style="color: green;">Don't have an account? Register</a>
+          <br>
+          <button type="submit" style="background-color: green; color: white; border-radius: 10px;">Login</button>
+        </form>
+      </div><!-- End Contact Form -->
+    </div>
+  </div>
+</section><!-- End Contact Section -->
+
+{% endblock %}

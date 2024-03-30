@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block title %}
+    Upload Car
+{% endblock %}
+{% block main %}
+
+<!-- ======= Breadcrumbs ======= -->
+<div class="breadcrumbs">
+  <div class="page-header d-flex align-items-center" style="background-image: url('assets/img/contactus.jpg');">
+    <div class="container position-relative">
+      <div class="row d-flex justify-content-center">
+        <div class="col-lg-6 text-center">
+          <h2>Upload Car</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <nav>
+    <div class="container">
+      <ol>
+        <li><a style="color: #034707;" href="{% url 'index' %}">Home</a></li>
+        <li>Upload Car</li>
+      </ol>
+    </div>
+  </nav>
+</div><!-- End Breadcrumbs -->
+
+<!-- ======= Contact Section ======= -->
+<section id="contact" class="contact">
+  <div class="container" data-aos="fade-up">
+    <div class="row gy-4 mt-4">
+      <div class="col-lg-4">
+        <!-- This space intentionally left blank -->
+      </div>
+
+      <div class="col-lg-8">
+        <form method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row">
+            <div class="col-md-6 form-group">
+              <label for="make">Car Make</label>
+              <input type="text" name="make" class="form-control" id="make" placeholder="Enter make e.g Toyota" required>
+            </div>
+
+            <div class="col-md-6 form-group">
+              <label for="model">Car Model</label>
+              <input type="text" name="model" class="form-control" id="model" placeholder="Enter model e.g Prado" required>
+            </div>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="year">Year</label>
+            <input type="text" class="form-control" name="year" id="year" placeholder="Year of Manufacturer e.g 2024" required>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="condition">Condition</label>
+            <select class="form-control" name="condition" required>
+              <option value="new">New</option>
+              <option value="used">Used</option>
+            </select>
+          </div>
+
+          <div class="form-group mt-3">
+            <label for="image">Image</label>
+            <input type="file" class="form-control" name="image" id="image" required>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Upload</button>
+        </form>
+      </div><!-- End Contact Form -->
+    </div>
+  </div>
+</section><!-- End Contact Section -->
+
+{% endblock %}

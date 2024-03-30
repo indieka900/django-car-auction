@@ -1,0 +1,47 @@
+<body>
+    <h1>Available Cars</h1>
+    <ul id="car-list">
+        {% for car in cars %}
+            {% with end_time=car.created_at|add:"86400" remaining_time=end_time|date:"U"|subtract:now|date:"U" %}
+                {% if remaining_time > 0 %}
+                    {% with remaining_hours=remaining_time|divisibleby:"3600" remaining_minutes=remaining_time|divisibleby:"60"|subtract:remaining_hours|multiply:"60" remaining_seconds=remaining_time|subtract:remaining_hours|multiply:"3600"|subtract:remaining_minutes|multiply:"60" %}
+                        <li id='car-{{ car.id }}'>
+                            <img src='{{ car.image.url }}' alt='{{ car.make }} {{ car.model }}' class='car-thumbnail'>
+                            <a href='{% url "bid" car.id %}'>{{ car.make }} {{ car.model }} {{ car.year }}</a>
+                            <br> Bidding ends in: <span id='timer-{{ car.id }}' data-remaining-time='{{ remaining_time }}'>{{ remaining_hours }} hours, {{ remaining_minutes }} minutes, and {{ remaining_seconds }} seconds</span>
+                        </li>
+                    {% endwith %}
+                {% else %}
+                    <li>No cars available.</li>
+                {% endif %}
+            {% endwith %}
+        {% empty %}
+            <li>No cars available.</li>
+        {% endfor %}
+    </ul>
+
+    <script>
+        // Update countdown timers every second
+        setInterval(updateTimers, 1000);
+
+        function updateTimers() {
+            var carList = document.getElementById('car-list').getElementsByTagName('li');
+            for (var i = 0; i < carList.length; i++) {
+                var carId = carList[i].id.split('-')[1];
+                var timerElement = document.getElementById('timer-' + carId);
+                var remainingTime = parseInt(timerElement.dataset.remainingTime);
+                if (remainingTime > 0) {
+                    remainingTime -= 1;
+                    var remainingHours = Math.floor(remainingTime / 3600);
+                    var remainingMinutes = Math.floor((remainingTime % 3600) / 60);
+                    var remainingSeconds = remainingTime % 60;
+                    timerElement.textContent = remainingHours + ' hours, ' + remainingMinutes + ' minutes, and ' + remainingSeconds + ' seconds';
+                    timerElement.dataset.remainingTime = remainingTime;
+                } else if (remainingTime <= 0) {
+                    // Remove the car from the list when time reaches zero
+                    carList[i].remove();
+                }
+            }
+        }
+    </script>
+</body>
