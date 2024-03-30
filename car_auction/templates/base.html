@@ -46,6 +46,12 @@
       <nav id="navbar" class="navbar">
         <ul>
           <li><a class="scrollto" href="/">Home</a></li>
+          
+          {% if user.usertype == "Buyer" %}
+            <li><a class="scrollto" href="/view_cars/">Cars</a></li>
+          {% endif %}
+            
+          
           <!-- <li><a class="scrollto" href="#">About Us</a></li> -->
           <li><a class="scrollto" href="#service">What we do</a></li>
           <li><a class="scrollto" href="#features">Features</a></li>
